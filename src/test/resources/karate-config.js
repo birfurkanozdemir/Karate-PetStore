@@ -5,7 +5,8 @@ function fn() {
     env = 'dev';
   }
   var config = {
-    env: env
+    env: env,
+    baseUrl: 'https://petstore.swagger.io'
   }
   karate.configure('ssl', true);
   karate.configure('connectTimeout', 5000);

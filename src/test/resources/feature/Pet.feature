@@ -2,12 +2,22 @@ Feature: Pet - Everything About Your Pets
 
   Background:
 
-    * def urlBase = 'https://petstore.swagger.io'
-    * def petPath = '/pet'
-    * def uploadImagePath = '/{petId}/uploadImage'
+    #* def urlBase = 'https://petstore.swagger.io'
+    * url baseUrl
+    * def petPath = '/v2/pet'
+    * def statusPath = '/findByStatus'
 
-  Scenario: Uploads an Image
+  Scenario Outline: Finds Pets by Status
 
-    Given url urlBase + petPath + uploadImagePath
-    When method POST
+    Given url baseUrl + petPath + statusPath
+    And header Content-Type = 'application/json'
+    And params { status: <statusInfo> }
+    When method GET
     Then status 200
+    * print response
+
+    Examples:
+      | statusInfo |
+      | available  |
+      | pending    |
+      | sold       |
